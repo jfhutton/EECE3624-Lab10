@@ -19,13 +19,14 @@
 
 //receiver
 int led = 13; 
-int incomingByte;     
+unsigned char incomingByte;     
 
 // HC-05
 SoftwareSerial bluetooth(2,4);  // RX, TX
 
 void setup() {
   Serial.begin(9600);
+  Serial.println("Serial setup complete.");
   pinMode(led, OUTPUT);
   // Setup the HC-05 bluetooth device
   // (HC)=(Uno).  VCC=5V, GND=GND, TX=RX(pin2),
@@ -39,7 +40,7 @@ void loop() {
   digitalWrite(led,LOW);
   delay(1000);
   if (bluetooth.available()) {  
-    incomingByte = bluetooth.read();
-    Serial.println(incomingByte);
+    incomingByte = (unsigned char) bluetooth.read();
+    Serial.write(incomingByte);
   }
 }
